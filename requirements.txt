@@ -55,4 +55,4 @@ testlib~=0.0.3
 setuptools~=65.5.0
 websockets~=12.0
 mysql-connector-python~=8.2.0
-websocket~=0.2.1
+websocket~=1.4.1

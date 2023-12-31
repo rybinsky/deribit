@@ -50,11 +50,13 @@ async def start_scrapper(configuration_path=None):
             instruments_list = await scrap_available_instruments_by_extended_config(
                 currency=_currency, cfg=configuration['orderBookScrapper'])
 
-        deribit_worker = DeribitClient(cfg=configuration, cfg_path=configuration,
+        print("CONFIG: ", configuration)
+        deribit_worker = DeribitClient(cfg=configuration, cfg_path=configuration_path,
                                        instruments_listed=instruments_list, loopB=derLoop,
                                        client_currency=_currency, dev_cfg=dev_cfg)
 
         deribit_worker.add_order_manager()
+        print("CONFIG STRATEGY: ", cfg_strategy)
         base_strategy = EmptyStrategy(cfg_strategy)
         deribit_worker.add_strategy(base_strategy)
 
@@ -73,6 +75,6 @@ async def start_scrapper(configuration_path=None):
 if __name__ == '__main__':
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
-    loop.create_task(start_scrapper())
+    loop.create_task(start_scrapper("configuration.yaml"))
     loop.run_forever()
     time.sleep(1)

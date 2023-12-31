@@ -18,10 +18,11 @@ class EmptyStrategy(AbstractStrategy):
         if configuration_file == 'StrategyConfig':
             logging.info('Use default strategy configuration')
 
-
-        cfg_path = "/".join(__file__.split('/')[:-1]) + "/" + f"{configuration_file}.yaml"
-        with open(cfg_path, "r") as ymlfile:
-            self.configuration = yaml.load(ymlfile, Loader=yaml.FullLoader)
+        # cfg_path = "/".join(__file__.split('/')[:-1]) + "/" + f"{configuration_file}.yaml"
+        cfg_path = "StrategyConfig.yaml"
+        print("CFG_PATH: ", cfg_path)
+        with open(cfg_path, "r") as yml_file:
+            self.configuration = yaml.load(yml_file, Loader=yaml.FullLoader)
 
         ticker_node = TickerNode(ping_time=self.configuration["StrategyConfiguration"]["TickerNodeFrequency"],
                                  wait_parameter=self.configuration["StrategyConfiguration"]["TickerNodeWaitingSize"])

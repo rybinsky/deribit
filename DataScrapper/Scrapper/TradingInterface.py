@@ -14,7 +14,7 @@ from typing import Optional, Union
 
 from ..InstrumentManager.AbstractInstrument import AbstractInstrumentInfo
 from ..DataBase import *
-from ..OrderManager import OrderManager
+from ..OrderManager.OrderManager import OrderManager
 from ..Subsciption import *
 from ..Strategy import *
 from ..Utils.AvailableCurrencies import Currency
@@ -112,8 +112,8 @@ def validate_configuration_file(configuration_path: str) -> dict:
         raise TypeError("Invalid type for scrapper configuration")
     print(cfg["orderBookScrapper"]["scrapper_body"])
     available_subs = list(map(
-        lambda x: 1 if (x != "OrderBook") and (x != "Trades") and (x != "Portfolio") and (x != "OwnOrderChange") else 0,
-                              cfg["orderBookScrapper"]["scrapper_body"]))
+        lambda x: 1 if (x != "OrderBook") and (x != "Trades") and (x != "Portfolio") and (x != "OwnOrderChange")
+                    else 0, cfg["orderBookScrapper"]["scrapper_body"]))
     if sum(available_subs) != 0:
         logging.warning("Unknown subscriptions at scrapper_body")
         raise NotImplementedError
@@ -215,21 +215,21 @@ def net_databases_to_subscriptions(scrapper: DeribitClient) -> dict[AbstractSubs
                     time.sleep(1)
                 elif action == "Trades":
                     database = HDF5Daemon(configuration_path=scrapper.configuration_path,
-                                           subscription_type=subscription_type,
-                                           loop=scrapper.loop)
+                                          subscription_type=subscription_type,
+                                          loop=scrapper.loop)
                     result_netting[subscription_type] = database
                     subscription_type.plug_in_record_system(database=database)
                 elif action == "OwnOrderChange":
                     database = HDF5Daemon(configuration_path=scrapper.configuration_path,
-                                           subscription_type=subscription_type,
-                                           loop=scrapper.loop)
+                                          subscription_type=subscription_type,
+                                          loop=scrapper.loop)
                     result_netting[subscription_type] = database
                     subscription_type.plug_in_record_system(database=database)
 
                 elif action == "Portfolio":
                     database = HDF5Daemon(configuration_path=scrapper.configuration_path,
-                                           subscription_type=subscription_type,
-                                           loop=scrapper.loop)
+                                          subscription_type=subscription_type,
+                                          loop=scrapper.loop)
                     result_netting[subscription_type] = database
                     subscription_type.plug_in_record_system(database=database)
         case _:
