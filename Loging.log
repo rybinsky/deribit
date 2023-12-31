@@ -1,0 +1,19 @@
+2023-12-31 19:22:37 | [INFO] | [MainThread] | root | FUNC: (AbstractDataSaverManager.py).__init__(33) | Cache instruments map exist
+2023-12-31 19:22:37 | [INFO] | [MainThread] | root | FUNC: (AbstractDataSaverManager.py).download_cache_from_file(51) | Dict map has last pointer equals to 1243
+2023-12-31 19:22:37 | [ERROR] | [MainThread] | root | FUNC: (run.py).start_scrapper(71) | expected str, bytes or os.PathLike object, not dict
+Traceback (most recent call last):
+  File "/Users/nikita/study/python/barinov.na/run.py", line 53, in start_scrapper
+    deribit_worker = DeribitClient(cfg=configuration, cfg_path=configuration,
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nikita/study/python/barinov.na/DataScrapper/Scrapper/TradingInterface.py", line 314, in __init__
+    self.subscription_type = net_databases_to_subscriptions(scrapper=self)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nikita/study/python/barinov.na/DataScrapper/Scrapper/TradingInterface.py", line 217, in net_databases_to_subscriptions
+    database = HDF5Daemon(configuration_path=scrapper.configuration_path,
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nikita/study/python/barinov.na/DataScrapper/DataBase/HDF5NewDaemon.py", line 27, in __init__
+    super().__init__(config_path=configuration_path, subscription_type=subscription_type,
+  File "/Users/nikita/study/python/barinov.na/DataScrapper/DataBase/AbstractDataSaverManager.py", line 111, in __init__
+    with open(config_path, "r") as ymlfile:
+         ^^^^^^^^^^^^^^^^^^^^^^
+TypeError: expected str, bytes or os.PathLike object, not dict
